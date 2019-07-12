@@ -71,7 +71,7 @@ input[type=submit]  {
 .title_parts:after {
 	box-shadow: #8fbc94 0 -20px 0 0;
 	height: 20px;
-	width: 80px;
+	width: 95px;
 	content: '';
 	display: block;
 }
