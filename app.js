@@ -29,7 +29,7 @@ app.set('views', path.join(__dirname, 'views'))
 	var request = {
 		retirement_age:req.query.retirement_age,
 		yearly_revenue : req.query.yearly_revenue,
-		max_rate : req.query.max_rate,
+		min_contribution : req.query.min_contribution,
 		contribution_rate : req.query.contribution_rate,
 		additional_contribution : req.query.additional_contribution,
 		fee_on_contributions : req.query.fee_on_contributions,

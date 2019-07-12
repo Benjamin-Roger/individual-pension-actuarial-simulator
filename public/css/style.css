@@ -21,13 +21,12 @@ body {
 
 .label_hypothesis {
 	display: inline-flex;
-	width:70%;
+	max-width:60%;
 }
 
 input {
 	border-radius: 10px;
 	padding:.5rem;
-	width:25%;
 }
 
 .label_hypothesis,input {
@@ -35,16 +34,39 @@ input {
 	vertical-align: middle;
 }
 
+.input_block {
+
+	min-width:25%;
+	max-width:40%;
+	float:right;
+	display:flex;
+	align-items: center;
+}
+
 input[type=number] {
 	-webkit-appearance:textfield;
 	text-align:right;
-	padding-right:25px;
+	width:100%;
 }
 
-input[type=number] ~ i.post-symbol {
-	position:relative;
-	left:-25px;
+input[type=submit]  {
+	width:auto;
+	margin:15px;
 }
+
+.input_block { 
+	position: relative;
+}
+
+.input_block input[type=number] {
+	text-indent: 30px;
+}
+
+.input_block .post-symbol { 
+  position: absolute;
+  left:15px;
+}
+
 
 .title_parts:after {
 	box-shadow: #8fbc94 0 -20px 0 0;
@@ -72,3 +94,21 @@ input[type=number] ~ i.post-symbol {
 	text-align: right;
 }
 
+
+@media (max-width:600px) {
+
+	.watermark {		
+		padding:1rem;
+	}
+	.main {
+		margin-top:25%;
+	}
+
+	.input_block,.label_hypothesis {
+		max-width:initial;
+		width:100%;
+		float:initial;
+	}
+
+
+}

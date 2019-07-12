@@ -213,28 +213,27 @@ fs.readFile('./data/table_mortalite_femmes.csv', 'utf8', (err, data) => {
 
 
 function format_number(number) {
-    let value = (Math.round(number).toLocaleString()).toString();
-    let teste = value.replace(/,/g,' ');
+	let value = (Math.round(number).toLocaleString()).toString();
+	let teste = value.replace(/,/g,' ');
 
-    return teste
-  }
+	return teste
+}
 
 function format_percentage(number) {
-    let value = ((number*100).toFixed(2)).toString()
-    let teste = value.replace('.',',') + ' %';
+	let value = ((number*100).toFixed(2)).toString()
+	let teste = value.replace('.',',') + ' %';
 
-    return teste
- }
+	return teste
+}
 
 
 
 function simulator(dataset) {
 
 	//Etablissement variables
-
 	var retirement_age = dataset.retirement_age;
 	var monthly_revenue = dataset.yearly_revenue/12;
-	var max_rate = dataset.max_rate;
+	var min_contribution = dataset.min_contribution;
 	var contribution_rate = dataset.contribution_rate/100;
 	var additional_contribution = dataset.additional_contribution/1;
 	var fee_on_contributions = dataset.fee_on_contributions/100;
@@ -249,7 +248,12 @@ function simulator(dataset) {
 
 
 	//Calculs
-	var monthly_contribution_basis = monthly_revenue - max_rate/12;
+
+	if (monthly_revenue > min_contribution/12) {
+		var monthly_contribution_basis = monthly_revenue - min_contribution/12;
+	} else {
+		var monthly_contribution_basis = 0;
+	}
 	var monthly_contribution = monthly_contribution_basis * contribution_rate;
 	var net_monthly_revenue = monthly_revenue - monthly_contribution;
 	var total_monthly_contribution = monthly_contribution + additional_contribution;

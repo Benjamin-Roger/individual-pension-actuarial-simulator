@@ -1,104 +1,99 @@
 <h1 class="title_parts">Outputs</h1>
 
-			<div class="row">
-				<div class="col-sm-6">
+<div class="row">
+	<div class="col-sm-6">
 
-					<table class="table table-hover table-striped">
-						<thead><tr><th>Revenu et cotisation</th></tr></thead>
-						<tr>
-							<td>Revenu mensuel</td>
-							<td id="monthly_revenue"><%= dataset.monthly_revenue %></td>
-						</tr>
-						<tr>
-							<td>Revenu mensuel net de cotisation</td>
-							<td id="net_monthly_revenue"><%= dataset.net_monthly_revenue %></td>
-						</tr>
-						<tr>
-							<td>Plage mensuelle de cotisation</td>
-							<td id="monthly_contribution_basis"><%= dataset.monthly_contribution_basis %></td>
-						</tr>
-						<tr>
-							<td>Cotisation mensuelle</td>
-							<td id="monthly_contribution"><%= dataset.monthly_contribution %></td>
-						</tr>
+		<table class="table table-hover table-striped">
+			<thead><tr><th>Revenu et cotisation</th></tr></thead>
+			<tr>
+				<td>Plage mensuelle de cotisation</td>
+				<td id="monthly_contribution_basis"><%= dataset.monthly_contribution_basis %></td>
+			</tr>
+			<tr>
+				<td>Revenu mensuel net de cotisation</td>
+				<td id="net_monthly_revenue"><%= dataset.net_monthly_revenue %></td>
+			</tr>
+			<tr>
+				<td>Cotisation mensuelle</td>
+				<td id="monthly_contribution"><%= dataset.monthly_contribution %></td>
+			</tr>
 
-						<tr>
-							<td>Cotisation investie (nette de frais généraux)</td>
-							<td id="invested_contribution"><%= dataset.invested_contribution %></td>
-						</tr>
-					</table>
-					<table class="table table-hover table-striped">
-						<thead><tr><th>Informations générales</th></tr></thead>
-						<tr>
-							<td>Nombre d'années de cotisation</td>
-							<td id="contribution_years"><%= dataset.contribution_years %></td>
-						</tr>
-						<tr>
-							<td>Nombre de mois de cotisation</td>
-							<td id="contribution_months"><%= dataset.contribution_months %></td>
-						</tr>
-						<tr>
-							<td>Taux minimum garanti (mensuel)</td>
-							<td id="monthly_TMG_rate"><%= dataset.monthly_TMG_rate %></td>
-						</tr>
-						<tr>
-							<td>Taux de croissance mensuel des salaires</td>
-							<td id="monthly_wages_growth_rate"><%= dataset.monthly_wages_growth_rate %></td>
-						</tr>
-					</table>
-				</div>
-				<div class="col-sm-6">
-					<table class="table table-hover table-striped">
-						<thead><tr><th>Espérance de vie</th></tr></thead>						
-						<tr>
-							<td>Espérance de vie à la retraite</td>
-							<td id="expected_lifespan"><%= dataset.expected_lifespan %></td>
-						</tr>
-						<tr>
-							<td>Coefficient de conversion du capital en rentes de l'assuré</td>
-							<td id="conversion_coefficient"><%= dataset.conversion_coefficient %></td>
-						</tr>
-					</table>
-					<table class="table table-hover table-striped">
-						<thead><tr><th>Capital et pension</th></tr></thead>
-						<tr>
-							<td>Capital accumulé</td>
-							<td id="accumulated_capital"><%= dataset.accumulated_capital %></td>
-						</tr>
+			<tr>
+				<td>Cotisation investie (nette de frais généraux)</td>
+				<td id="invested_contribution"><%= dataset.invested_contribution %></td>
+			</tr>
+		</table>
+		<table class="table table-hover table-striped">
+			<thead><tr><th>Informations générales</th></tr></thead>
+			<tr>
+				<td>Nombre de mois de cotisation</td>
+				<td id="contribution_months"><%= dataset.contribution_months %></td>
+			</tr>
+			<tr>
+				<td>Taux minimum garanti (mensuel)</td>
+				<td id="monthly_TMG_rate"><%= dataset.monthly_TMG_rate %></td>
+			</tr>
+		</table>
+		<table class="table table-hover table-striped">
+			<thead><tr><th>Espérance de vie</th></tr></thead>						
+			<tr>
+				<td>Espérance de vie à la retraite</td>
+				<td id="expected_lifespan"><%= dataset.expected_lifespan %></td>
+			</tr>
+			<tr>
+				<td>Coefficient de conversion du capital en rentes de l'assuré</td>
+				<td id="conversion_coefficient"><%= dataset.conversion_coefficient %></td>
+			</tr>
+		</table>
+	</div>
+	<div class="col-sm-6">
+		<table class="table table-hover table-striped">
+			<thead><tr><th>Capital et pension</th></tr></thead>
+			<tr>
+				<td>Capital accumulé</td>
+				<td id="accumulated_capital"><%= dataset.accumulated_capital %></td>
+			</tr>
 
-						<tr>
-							<td>Capital retraite</td>
-							<td id="pension_capital"><%= dataset.pension_capital %></td>
-						</tr>
-						<tr>
-							<td>Sortie en capital</td>
-							<td id="capital_withdrawal"><%= dataset.capital_withdrawal %></td>
-						</tr>
-						<tr>
-							<td>Rente viagère sans réversion</td>
-							<td id="life_annuity_without_reversion"><%= dataset.life_annuity_without_reversion %></td>
-						</tr>
-						<tr>
-							<td>Pension mensuelle sans réversion</td>
-							<td id="monthly_pension_without_reversion"><%= dataset.monthly_pension_without_reversion %></td>
-						</tr>
-						<tr>
-							<td>Taux de remplacement sans réversion</td>
-							<td id="replacement_rate_without_reversion"><%= dataset.replacement_rate_without_reversion %></td>
-						</tr>
+			<tr>
+				<td>Capital retraite</td>
+				<td id="pension_capital"><%= dataset.pension_capital %></td>
+			</tr>
+			<tr>
+				<td>Sortie en capital</td>
+				<td id="capital_withdrawal"><%= dataset.capital_withdrawal %></td>
+			</tr>
+		</table>
+		<table class="table table-hover table-striped">
+			<thead><tr><th>Sans réversion</th></tr></thead>
+			<tr>
+				<td>Rente viagère sans réversion</td>
+				<td id="life_annuity_without_reversion"><%= dataset.life_annuity_without_reversion %></td>
+			</tr>
+			<tr>
+				<td>Pension mensuelle sans réversion</td>
+				<td id="monthly_pension_without_reversion"><%= dataset.monthly_pension_without_reversion %></td>
+			</tr>
+			<tr>
+				<td>Taux de remplacement sans réversion</td>
+				<td id="replacement_rate_without_reversion"><%= dataset.replacement_rate_without_reversion %></td>
+			</tr>
+		</table>
+		<table class="table table-hover table-striped">
 
-						<tr>
-							<td>Rente viagère en cas de réversion</td>
-							<td id="life_annuity_if_reversion"><%= dataset.life_annuity_if_reversion %></td>
-						</tr>
-						<tr>
-							<td>Pension mensuelle en cas de réversion</td>
-							<td id="monthly_pension_if_reversion"><%= dataset.monthly_pension_if_reversion %></td>
-						</tr>
-						<tr>
-							<td>Taux de remplacement en cas de réversion</td>
-							<td id="replacement_rate_if_reversion"><%= dataset.replacement_rate_if_reversion %></td>
-						</tr>
-					</table> 
-				</div>
-			</div>
+			<thead><tr><th>En cas de réversion</th></tr></thead>
+
+			<tr>
+				<td>Rente viagère en cas de réversion</td>
+				<td id="life_annuity_if_reversion"><%= dataset.life_annuity_if_reversion %></td>
+			</tr>
+			<tr>
+				<td>Pension mensuelle en cas de réversion</td>
+				<td id="monthly_pension_if_reversion"><%= dataset.monthly_pension_if_reversion %></td>
+			</tr>
+			<tr>
+				<td>Taux de remplacement en cas de réversion</td>
+				<td id="replacement_rate_if_reversion"><%= dataset.replacement_rate_if_reversion %></td>
+			</tr>
+		</table> 
+	</div>
+</div>
