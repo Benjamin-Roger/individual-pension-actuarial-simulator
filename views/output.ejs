@@ -1,5 +1,7 @@
 <h1 class="title_parts">Outputs</h1>
 
+<button class="btn btn-warning" id="btn-export">Exporter au format CSV</button>
+
 <div class="row">
 	<div class="col-sm-6">
 
@@ -14,7 +16,7 @@
 				<td id="net_monthly_revenue"><%= dataset.net_monthly_revenue %></td>
 			</tr>
 			<tr>
-				<td>Cotisation mensuelle</td>
+				<td>Cotisation mensuelle - hors cotisation additionnelle</td>
 				<td id="monthly_contribution"><%= dataset.monthly_contribution %></td>
 			</tr>
 
@@ -26,8 +28,8 @@
 		<table class="table table-hover table-striped">
 			<thead><tr><th>Informations générales</th></tr></thead>
 			<tr>
-				<td>Nombre de mois de cotisation</td>
-				<td id="contribution_months"><%= dataset.contribution_months %></td>
+				<td>Nombre d'années de cotisation</td>
+				<td id="contribution_years"><%= dataset.contribution_years %></td>
 			</tr>
 			<tr>
 				<td>Taux minimum garanti (mensuel)</td>
@@ -48,7 +50,7 @@
 	</div>
 	<div class="col-sm-6">
 		<table class="table table-hover table-striped">
-			<thead><tr><th>Capital et pension</th></tr></thead>
+			<thead><tr><th>Capital</th></tr></thead>
 			<tr>
 				<td>Capital accumulé</td>
 				<td id="accumulated_capital"><%= dataset.accumulated_capital %></td>
@@ -97,3 +99,11 @@
 		</table> 
 	</div>
 </div>
+
+<script>
+
+	$('#btn-export').click( function() {
+		exportTableToCSV('resultats.csv')
+	});
+
+</script>

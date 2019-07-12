@@ -4,13 +4,12 @@
 	<title>Simulation - Retraite par capitalisation</title>
 	<meta charset="utf-8"/>
 	<link rel="stylesheet" href="/css/style.css">
-
 </head>
+
 <body>
 	<h5 class="watermark">Simulation de retraite par capitalisation - A titre d'exemple uniquement</h5>
 	<div class="main">
 		<h1 class="title_parts">Inputs</h1>
-
 		<form class="row" id="input_form">
 			<div class="col-lg-6">
 				<h3><span class="number">1</span>Hypothèses liées aux paramètres du régime</h3>
@@ -154,13 +153,6 @@
 integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
 crossorigin="anonymous"></script>
 
-<!-- Import script de parsing css -->
-<script src="/js/papaparse.min.js"></script>
-
-<!-- Import script du moteur de simulation -->
-<!-- <script src="/js/simulation.js"></script> -->
-
-
 <script>
 
 	$("#input_form").submit(function(e) {
@@ -179,6 +171,9 @@ crossorigin="anonymous"></script>
 	});
 
 </script>
+
+<script src='/js/export.js'></script>
+
 
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
