@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<title>Simulation - Retraite par capitalisation</title>
+	<meta charset="utf-8"/>
+	<link rel="stylesheet" href="/css/style.css">
+
+</head>
+<body>
+	<h5 class="watermark">Simulation de retraite par capitalisation - A titre d'exemple uniquement</h5>
+	<div class="main">
+		<h1 class="title_parts">Inputs</h1>
+
+		<form class="row" id="input_form">
+			<div class="col-sm-6">
+				<h3><span class="number">1</span>Hypothèses liées aux paramètres du régime</h3>
+				<label class="label_hypothesis" for="TMG_rate">Taux minimum garanti (TMG annuel)</label>
+				<input min='0' type="number" id="TMG_rate" name="TMG_rate" step="0.1" value="3.5"><i class="post-symbol">%</i><br/>
+				<label class="label_hypothesis" for="max_rate">Plafond</label>
+				<input min='0' type="number" id="max_rate" name="max_rate" value='0'><br/>
+				<label class="label_hypothesis" for="wages_growth_rate">Taux de croissance des revenus</label>
+				<input min='0' type="number" id="wages_growth_rate" name="wages_growth_rate" step='0.05' value='1.35'><i class="post-symbol">%</i><br/>
+
+				<label class="label_hypothesis" for="contribution_rate">Taux de cotisation</label>
+				<input min='0' type="number" id="contribution_rate" name="contribution_rate" step="0.1" value='5'><i class="post-symbol">%</i><br/>
+
+				<label class="label_hypothesis" for="fee_on_contributions">Frais de gestion sur cotisations</label>
+				<input min='0' type="number" id="fee_on_contributions" name="fee_on_contributions" step="0.1" value='5'><i class="post-symbol">%</i><br/>
+
+				<label class="label_hypothesis" for="fee_on_pensions">Frais de gestion sur pensions</label>
+				<input min='0' type="number" id="fee_on_pensions" name="fee_on_pensions" step="0.1" value='0'><i class="post-symbol">%</i><br/>
+
+				<label class="label_hypothesis" for="anticipated_retirement_abatement">Abattement en cas de retraite anticipée</label>
+				<input min='0' type="number" id="anticipated_retirement_abatement" name="anticipated_retirement_abatement" step="0.1" value='5'><i class="post-symbol">%</i><br/>
+
+				<label class="label_hypothesis" for="capital_reversion">Réversion Capital (nombre d'années de pensions)</label>
+				<input min='0' type="number" id="capital_reversion" name="capital_reversion" value='3'>
+			</div>
+
+			<div class="col-sm-6">
+
+				<h3><span class="number">2</span>Hypothèses générales</h3>
+				<label class="label_hypothesis" for="simulation_year">Année de simulation</label>
+				<input min='0' type="number" id="simulation_year" name="simulation_year" value='2018'><br/>
+				<hr>
+
+				<h3><span class="number">3</span>Hypothèses liées au travailleur</h3>
+
+				<label class="label_hypothesis" for="working_age">Âge d'entrée dans la vie active</label>
+				<input min='0' type="number" id="working_age" name="working_age" value='40'><br/>
+
+				<label class="label_hypothesis" for="retirement_age">Âge de départ à la retraite</label>
+				<input min='0' type="number" id="retirement_age" name="retirement_age" value='65'><br/>
+
+				<label class="label_hypothesis" for="yearly_revenue">Revenu annuel</label>
+				<input min='0' type="number" id="yearly_revenue" name="yearly_revenue" value='4734504'><br/>
+
+				<label class="label_hypothesis" for="capital_withdrawal_rate">Sortie en capital</label>
+				<input min='0' type="number" id="capital_withdrawal_rate" name="capital_withdrawal_rate" value='20'><i class="post-symbol">%</i><br/>
+
+				<label class="label_hypothesis" for="additional_contribution">Cotisation additionnelle</label>
+				<input min='0' type="number" id="additional_contribution" name="additional_contribution" value='150000'><br/>
+			</div>
+
+			<input class="btn btn-success" type="submit" name="submit" value="Lancer la simulation">
+		</form>
+
+		<hr/>
+
+		<div id="section_output">
+
+		</div>
+	</div>
+
+
+</body>
+
+<!-- Import jQuery -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+crossorigin="anonymous"></script>
+
+<!-- Import script de parsing css -->
+<script src="/js/papaparse.min.js"></script>
+
+<!-- Import script du moteur de simulation -->
+<!-- <script src="/js/simulation.js"></script> -->
+
+
+<script>
+
+	$("#input_form").submit(function(e) {
+		e.preventDefault();
+
+		var url = '/outputs?' + $("#input_form").serialize();
+
+		$.ajax({
+			url: url,
+			success: function(response) {
+				$('#section_output').html(response);
+			}
+
+		})
+
+	});
+
+</script>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+</html>
