@@ -17,7 +17,7 @@ var basicAuth = require('express-basic-auth');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
 .use(basicAuth({
-	users: { admin: 'supersecret123' },
+	users: { simulateur: 'mdp01simulateur' },
     challenge: true // <--- needed to actually show the login dialog!
 }))
 .set('view engine', 'ejs')
