@@ -98,13 +98,14 @@
 			</tr>
 		</table> 
 	</div>
-
-	<div style="text-align:center;padding: 10%">
-		<canvas id="chart_pension" width="250" height="150"></canvas>
-	</div>
-
-
 </div>
+<div style="text-align:center;width:100%">
+	<div class="blockchart">
+		<canvas id="chart_pension" width="400" height="400"></canvas>
+	</div>
+</div>
+
+
 
 <script>
 
@@ -147,6 +148,8 @@
 				text: "Estimation de la pension nette",
 				fontSize:14
 			},
+			responsive: true,
+			maintainAspectRatio: false,
 			scales: {
 				xAxes: [{
 					stacked: true

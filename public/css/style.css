@@ -3,22 +3,23 @@ body {
 
 }
 
+.watermark {
+	text-align: right;
+	font-weight: bold;
+	text-transform: uppercase;
+	color:white;
+	font-size:14px;
+	margin:15px 15px 0 0;
+}
+
 .main {
-	margin:5%;
+	margin:2.5% 5% 5% 5%;
 	background:white;
 	padding:5%;
 	border-radius:5px;
 	transition:all .5s ease-in-out;
 }
 
-.watermark {
-	position:absolute;
-	top:5px;
-	right:5%;
-	font-weight: bold;
-	text-transform: uppercase;
-	color:white;
-}
 
 .label_hypothesis {
 	display: inline-flex;
@@ -27,7 +28,7 @@ body {
 
 input {
 	border-radius: 10px;
-	padding:.5rem;
+	padding:5px;
 }
 
 .label_hypothesis,input {
@@ -109,15 +110,21 @@ output{
 	min-width:30%;
 }
 
+#btn-export {
+	margin-bottom:10px;
+}
+
+.table td {
+	padding:.25rem!important
+}
+
+.blockchart {
+	padding:0 5% 0 5%;
+}
+
+
 
 @media (max-width:600px) {
-
-	.watermark {		
-		padding:1rem;
-	}
-	.main {
-		margin-top:25%;
-	}
 
 	.input_block,.label_hypothesis {
 		max-width:initial;
@@ -129,5 +136,12 @@ output{
 		min-width:25vw;
 	}
 
+	h1,h2,h3 {
+		font-size: 1.5rem!important
+	}
+
+	label,p,input,tr,td,th,button {
+		font-size: .8rem!important;
+	}
 }
 
