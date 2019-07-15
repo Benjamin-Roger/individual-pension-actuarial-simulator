@@ -122,6 +122,15 @@ output{
 	padding:0 5% 0 5%;
 }
 
+.div-submit {
+	display:flex;
+	align-items: center;
+}
+
+#loader-spin {
+	display:none;
+}
+
 
 
 @media (max-width:600px) {
