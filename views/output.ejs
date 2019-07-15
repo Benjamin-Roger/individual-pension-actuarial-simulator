@@ -131,12 +131,12 @@
 			labels: ["Sans réversion", "Si réversion"],
 			datasets: [{
 				type: 'bar',
-				label: ['Part obtenue avec',' les cotisations de base'],
+				label: 'Retraite de base',
 				backgroundColor: "#548687",
 				data: [monthly_pension_without_reversion_BC, monthly_pension_if_reversion_BC],
 			}, {
 				type: 'bar',
-				label: ['Part obtenue avec',' les cotisations additionnelles'],
+				label:'Part due aux cotisations additionnelles',
 				backgroundColor: "#8fbc94",
 				data: [monthly_pension_without_reversion_AC, monthly_pension_if_reversion_AC]
 			}]
@@ -161,8 +161,10 @@
 		}
 	};
 
+
+
 	var ctx = document.getElementById("chart_pension").getContext("2d");
-	new Chart(ctx, config);
+	new Chart(ctx, config,options);
 
 
 
