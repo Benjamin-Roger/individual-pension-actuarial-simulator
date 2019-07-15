@@ -55,6 +55,19 @@ input[type=submit]  {
 	margin:15px;
 }
 
+input[type=range]  {
+	width:60%;
+	margin-left:10%;
+}
+
+output{
+	margin:0;
+	margin-left:15%;
+	line-height: initial!important;
+	font-size:initial!important;
+	padding:initial!important;
+}
+
 .input_block { 
 	position: relative;
 }

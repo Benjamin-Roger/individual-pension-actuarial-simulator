@@ -212,8 +212,11 @@ fs.readFile('./data/table_mortalite_femmes.csv', 'utf8', (err, data) => {
 });
 
 
-function format_number(number) {
-	let value = (Math.round(number).toLocaleString()).toString();
+function format_number(number,decimals) {
+
+	if (decimals === undefined) {decimals = 0};
+
+	let value = ((Math.round(number*Math.pow(10,decimals))/Math.pow(10,decimals)).toLocaleString()).toString();
 	let teste = value.replace(/,/g,' ');
 
 	return teste
@@ -293,6 +296,32 @@ function simulator(dataset) {
 	var replacement_rate_if_reversion = monthly_pension_if_reversion*12/(monthly_contribution_basis*12*Math.pow(1+wages_growth_rate,contribution_years));
 
 
+	//Value for base contribution
+	var accumulated_capital_BC = (monthly_contribution*(1-fee_on_contributions))/1 * 
+	(1 - Math.pow(compounded_rate,contribution_months))
+	/
+	(1-compounded_rate)
+	;
+	var pension_capital_BC = accumulated_capital_BC*(1 - capital_withdrawal_rate )
+
+	if (retirement_age >= official_retirement_age) {
+		var life_annuity_without_reversion_BC = pension_capital_BC/(conversion_coefficient*12);
+	} else 
+	{
+		var life_annuity_without_reversion_BC = pension_capital_BC/(conversion_coefficient*12) * (1- anticipated_retirement_abatement);
+	}
+	var monthly_pension_without_reversion_BC = life_annuity_without_reversion_BC * (1 - fee_on_pensions);
+
+	if (retirement_age >= official_retirement_age) {
+		var life_annuity_if_reversion_BC = pension_capital_BC/((conversion_coefficient + capital_reversion)*12);
+	} else 
+	{
+		var life_annuity_if_reversion_BC = pension_capital_BC/((conversion_coefficient + capital_reversion)*12) * (1-anticipated_retirement_abatement);
+	}
+	var monthly_pension_if_reversion_BC = life_annuity_if_reversion_BC * (1 - fee_on_pensions);
+
+
+
 	var result = {
 		monthly_revenue:format_number(monthly_revenue),
 		monthly_contribution_basis:format_number(monthly_contribution_basis),
@@ -306,14 +335,18 @@ function simulator(dataset) {
 		accumulated_capital:format_number(accumulated_capital),
 		pension_capital:format_number(pension_capital),
 		expected_lifespan:format_number(expected_lifespan),
-		conversion_coefficient:format_number(conversion_coefficient),
+		conversion_coefficient:format_number(conversion_coefficient,2),
 		capital_withdrawal:format_number(capital_withdrawal),
 		life_annuity_without_reversion:format_number(life_annuity_without_reversion),
 		monthly_pension_without_reversion:format_number(monthly_pension_without_reversion),
 		replacement_rate_without_reversion:format_percentage(replacement_rate_without_reversion),
 		life_annuity_if_reversion:format_number(life_annuity_if_reversion),
 		monthly_pension_if_reversion:format_number(monthly_pension_if_reversion),
-		replacement_rate_if_reversion:format_percentage(replacement_rate_if_reversion)
+		replacement_rate_if_reversion:format_percentage(replacement_rate_if_reversion),
+		monthly_pension_without_reversion_BC:format_number(monthly_pension_without_reversion_BC),
+		monthly_pension_if_reversion_BC:format_number(monthly_pension_if_reversion_BC),
+		monthly_pension_without_reversion_AC:format_number(monthly_pension_without_reversion - monthly_pension_without_reversion_BC),
+		monthly_pension_if_reversion_AC:format_number(monthly_pension_if_reversion - monthly_pension_if_reversion_BC)
 	}
 
 	return result

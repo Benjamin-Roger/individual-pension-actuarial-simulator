@@ -1,4 +1,4 @@
-<h1 class="title_parts">Outputs</h1>
+<h1 class="title_parts">Résultats</h1>
 
 <button class="btn btn-warning" id="btn-export">Exporter au format CSV</button>
 
@@ -72,7 +72,7 @@
 				<td id="life_annuity_without_reversion"><%= dataset.life_annuity_without_reversion %></td>
 			</tr>
 			<tr>
-				<td>Pension mensuelle sans réversion</td>
+				<td>Retraite mensuelle nette sans réversion</td>
 				<td id="monthly_pension_without_reversion"><%= dataset.monthly_pension_without_reversion %></td>
 			</tr>
 			<tr>
@@ -89,7 +89,7 @@
 				<td id="life_annuity_if_reversion"><%= dataset.life_annuity_if_reversion %></td>
 			</tr>
 			<tr>
-				<td>Pension mensuelle en cas de réversion</td>
+				<td>Retraite mensuelle nette en cas de réversion</td>
 				<td id="monthly_pension_if_reversion"><%= dataset.monthly_pension_if_reversion %></td>
 			</tr>
 			<tr>
@@ -98,6 +98,12 @@
 			</tr>
 		</table> 
 	</div>
+
+	<div style="text-align:center;padding: 10%">
+		<canvas id="chart_pension" width="250" height="150"></canvas>
+	</div>
+
+
 </div>
 
 <script>
@@ -105,5 +111,56 @@
 	$('#btn-export').click( function() {
 		exportTableToCSV('resultats.csv')
 	});
+
+	function remakeNumber(str) {
+
+		return Number(str.split(' ').join(''))
+
+	}
+
+	var monthly_pension_without_reversion_BC = remakeNumber('<%= dataset.monthly_pension_without_reversion_BC %>');
+	var monthly_pension_if_reversion_BC = remakeNumber('<%= dataset.monthly_pension_if_reversion_BC %>');
+	var monthly_pension_without_reversion_AC = remakeNumber('<%=dataset.monthly_pension_without_reversion_AC%>');
+	var monthly_pension_if_reversion_AC = remakeNumber('<%= dataset.monthly_pension_if_reversion_AC %>');
+
+
+	var config = {
+		type: 'bar',
+		data: {
+			labels: ["Sans réversion", "Si réversion"],
+			datasets: [{
+				type: 'bar',
+				label: 'Contribution de base',
+				backgroundColor: "#548687",
+				data: [monthly_pension_without_reversion_BC, monthly_pension_if_reversion_BC],
+			}, {
+				type: 'bar',
+				label: 'Contribution additionnelle',
+				backgroundColor: "#8fbc94",
+				data: [monthly_pension_without_reversion_AC, monthly_pension_if_reversion_AC]
+			}]
+		},
+		options: {
+
+			title: {
+				display: true,
+				text: "Estimation de la pension nette",
+				fontSize:14
+			},
+			scales: {
+				xAxes: [{
+					stacked: true
+				}],
+				yAxes: [{
+					stacked: true
+				}]
+			}
+		}
+	};
+
+	var ctx = document.getElementById("chart_pension").getContext("2d");
+	new Chart(ctx, config);
+
+
 
 </script>

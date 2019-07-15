@@ -10,7 +10,7 @@
 <body>
 	<h5 class="watermark">Simulation de retraite par capitalisation - A titre d'exemple uniquement</h5>
 	<div class="main">
-		<h1 class="title_parts">Inputs</h1>
+		<h1 class="title_parts">Paramètres et hypothèses</h1>
 		<form class="row" id="input_form">
 			<div class="col-lg-6">
 				<h3><span class="number">1</span>Hypothèses liées aux paramètres du régime</h3>
@@ -80,7 +80,8 @@
 					<label class="label_hypothesis" for="capital_reversion">Réversion Capital (nombre d'années de pensions)</label>
 					<div class="input_block">
 						<i class="post-symbol"></i>
-						<input min='0' type="number" id="capital_reversion" name="capital_reversion" value='3' required>
+						<output id="capital_reversion_value" name="amount" for="capital_reversion">3</output>
+						<input min='0' type="range" min='0' max='6' step='1' id="capital_reversion" name="capital_reversion" value='3' required oninput="capital_reversion_value.value = capital_reversion.value">
 					</div>
 				</div>
 			</div>
@@ -128,7 +129,7 @@
 					</div>
 				</div>
 				<div>
-					<label class="label_hypothesis" for="additional_contribution">Cotisation additionnelle</label>
+					<label class="label_hypothesis" for="additional_contribution">Cotisation additionnelle mensuelle</label>
 
 					<div class="input_block">
 						<input min='0' type="number" id="additional_contribution" name="additional_contribution" value='150000' required>
@@ -174,6 +175,9 @@ crossorigin="anonymous"></script>
 </script>
 
 <script src='/js/export.js'></script>
+
+<!-- Import ChartJS -->
+<script src='https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js'></script>
 
 
 <!-- Latest compiled and minified CSS -->
