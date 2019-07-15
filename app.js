@@ -17,8 +17,8 @@ var basicAuth = require('express-basic-auth');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
 .use(basicAuth({
-	users: { simulateur: 'mdp01simulateur' },
-    challenge: true // <--- needed to actually show the login dialog!
+	users: { 'simulateur': 'mdp01simulateur' },
+    challenge: true
 }))
 .set('view engine', 'ejs')
 .use(morgan('combined'))
@@ -48,8 +48,7 @@ app.set('views', path.join(__dirname, 'views'))
 	res.render('output.ejs', {dataset:dataset})
 })
 .get('/',function(req,res,next) {
-	res
-	.sendFile(path.join(__dirname,'./public/index.html'))
+	res.sendFile(path.join(__dirname,'./public/index.html'))
 })
 
 

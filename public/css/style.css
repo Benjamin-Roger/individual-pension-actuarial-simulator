@@ -1,5 +1,6 @@
 body {
-	background: linear-gradient(to bottom right,#548687,#8fbc94)
+	background: linear-gradient(to bottom right,#548687,#8fbc94);
+
 }
 
 .main {
@@ -63,8 +64,8 @@ input[type=submit]  {
 }
 
 .input_block .post-symbol { 
-  position: absolute;
-  left:15px;
+	position: absolute;
+	left:15px;
 }
 
 
@@ -92,6 +93,7 @@ input[type=submit]  {
 
 .table td:nth-child(2) {
 	text-align: right;
+	min-width:30%;
 }
 
 
@@ -110,5 +112,9 @@ input[type=submit]  {
 		float:initial;
 	}
 
+	.table td:nth-child(2) {	
+		min-width:25vw;
+	}
 
 }
+
