@@ -217,16 +217,16 @@ function format_number(number,decimals) {
 	if (decimals === undefined) {decimals = 0};
 
 	let value = ((Math.round(number*Math.pow(10,decimals))/Math.pow(10,decimals)).toLocaleString()).toString();
-	let teste = value.replace(/,/g,' ');
+	let end_result = value.replace(/,/g,' ');
 
-	return teste
+	return end_result
 }
 
 function format_percentage(number) {
 	let value = ((number*100).toFixed(2)).toString()
-	let teste = value.replace('.',',') + ' %';
+	let end_result = value.replace('.',',') + ' %';
 
-	return teste
+	return end_result
 }
 
 
@@ -251,6 +251,8 @@ function simulator(dataset) {
 
 
 	//Calculs
+
+	var retirement_year = + simulation_year + (retirement_age - working_age);
 
 	if (monthly_revenue > min_contribution/12) {
 		var monthly_contribution_basis = monthly_revenue - min_contribution/12;
@@ -326,6 +328,7 @@ function simulator(dataset) {
 		monthly_revenue:format_number(monthly_revenue),
 		monthly_contribution_basis:format_number(monthly_contribution_basis),
 		monthly_contribution:format_number(monthly_contribution),
+		retirement_year:retirement_year,
 		net_monthly_revenue:format_number(net_monthly_revenue),
 		invested_contribution:format_number(invested_contribution),
 		contribution_years:format_number(contribution_years),

@@ -1,4 +1,4 @@
-body {
+body, .result-block, .icon-data .data, .icon-data .fa {
 	background: linear-gradient(to bottom right,#548687,#8fbc94);
 
 }
@@ -91,6 +91,18 @@ output{
 	display: block;
 }
 
+.subtitle {
+	color: #8fbc94;
+}
+
+
+.align-justify {
+	display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
 .number {
 	background: #8fbc94;
 	color: #fff;
@@ -120,6 +132,60 @@ output{
 
 .blockchart {
 	padding:0 5% 0 5%;
+}
+
+
+.result-block {
+	padding:10px;
+	border-radius:25px;
+}
+
+.result-block .data {
+
+	white-space: nowrap
+}
+
+
+.result-block span, .result-block h4 {
+	color:white;
+}
+
+.label {
+	text-transform: uppercase;
+	text-align: center;
+}
+
+.data {
+	font-size:1.5rem;
+}
+
+
+.icon-info {
+	margin-right: 5px;
+	color:#8fbc94;
+	background: white;
+	border-radius:50%;
+	width: 25px;
+	height: 25px;
+	padding: 5px;
+}
+
+.icon-data .data {
+	color:white;
+	border-radius:25px;
+	padding:5px 20px 5px 20px;
+	text-align: center;
+}
+
+.icon-data .fa {
+	font-size:1.5rem;
+	color: white;
+	border-radius:100%;
+	padding:20px;
+}
+
+.piechart {
+	max-width:300px;
 }
 
 .div-submit {

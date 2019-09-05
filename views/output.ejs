@@ -1,9 +1,111 @@
 <h1 class="title_parts">Résultats</h1>
 
-<button class="btn btn-warning" id="btn-export">Exporter au format CSV</button>
+<div class="row align-justify m-4">
 
+	<div class="col-lg-4 result-block">
+
+		<div class="row align-justify">
+			<h4 class="text-center">Retraite mensuelle nette estimée</h4><br/>
+		</div>
+
+
+		<hr style="width:25%; background:white"/>
+
+		<div class="row m-1">
+			<div class="col-lg-7 align-justify flex-inline">
+				<i class="fa fa-info icon-info text-center" data-toggle="tooltip" data-placement="top" title="Mention de la pension nette versée si le cotisant a des ayant-droits (époux, enfants...)."></i>
+				<span class="label">Avec réversion</span>
+			</div>
+			<div class="col-lg-5 align-justify">
+				<span class="data"><%= dataset.monthly_pension_if_reversion %></span>
+			</div>
+		</div>
+		<hr style="width:50%; background:white"/>
+		<div class="row m-1">
+			<div class="col-lg-7 align-justify">
+				<i class="fa fa-info icon-info text-center" data-toggle="tooltip" data-placement="top" title="Mention de la pension nette versée si le cotisant n'a pas d'ayant-droits."></i>
+				<span class="label">Sans réversion</span>
+			</div>
+			<div class="col-lg-5 align-justify">
+				<span class="data"><%= dataset.monthly_pension_without_reversion %></span>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-lg-7 offset-lg-1 icon-data">
+
+		<div class="row m-1">
+			<div class="col-lg-2 align-justify">
+				<i class="fa fa-file-text-o"></i>
+			</div>
+			<div class="col-lg-5 col-6 align-justify">
+				<span class="label">Nombre de mois cotisés</span>
+			</div>
+
+			<div class="col-lg-5  col-6 align-justify">
+				<span class="data"><%= dataset.contribution_months %></span>
+			</div>
+		</div>
+
+		<hr style="width:50%; background:#8fbc94"/>
+
+		<div class="row m-1">
+			<div class="col-lg-2 align-justify">
+				<i class="fa fa-calendar"></i>
+			</div>
+			<div class="col-lg-5 col-6 align-justify">
+				<span class="label">Année de départ en retraite</span>
+			</div>
+
+			<div class="col-lg-5 col-6 align-justify">
+				<span class="data"><%= dataset.retirement_year %></span>
+			</div>
+		</div>
+
+		<hr style="width:50%; background:#8fbc94"/>
+
+		<div class="row m-1">
+			<div class="col-lg-2 align-justify">
+				<i class="fa fa-money"></i>
+			</div>
+			<div class="col-lg-5 align-justify">
+				<span class="label">Sortie immédiate en capital</span>
+			</div>
+
+			<div class="col-lg-5 align-justify">
+				<span class="data"><%= dataset.capital_withdrawal %></span>
+			</div>
+
+		</div>
+	</div>
+
+</div>
+
+
+<div class="row m-4">
+
+	<div class="col-sm-6 col-lg-4 align-justify">
+		<div class="chart piechart">
+			<canvas id="piechart_pension" height="300"></canvas>
+		</div>
+	</div>
+
+	<div class="col-sm-6 col-lg-8 align-justify">
+		<div class="chart">
+			<canvas id="barchart_pension" height="300" ></canvas>
+		</div>
+	</div>
+
+</div>
+
+
+
+<hr>
+
+<h3 class="subtitle">Détail</h3>
+<button class="btn btn-warning" id="btn-export">Exporter au format CSV</button>
 <div class="row">
-	<div class="col-sm-6">
+	<div class="col-lg-6">
 
 		<table class="table table-hover table-striped">
 			<thead><tr><th>Revenu et cotisation</th></tr></thead>
@@ -48,7 +150,7 @@
 			</tr>
 		</table>
 	</div>
-	<div class="col-sm-6">
+	<div class="col-lg-6">
 		<table class="table table-hover table-striped">
 			<thead><tr><th>Capital</th></tr></thead>
 			<tr>
@@ -99,15 +201,16 @@
 		</table> 
 	</div>
 </div>
-<div style="text-align:center;width:100%">
-	<div class="blockchart">
-		<canvas id="chart_pension" width="400" height="400"></canvas>
-	</div>
-</div>
-
-
 
 <script>
+
+
+	//Activation tooltip
+	$(function () {
+		$('[data-toggle="tooltip"]').tooltip()
+	})
+
+	//Export data button
 
 	$('#btn-export').click( function() {
 		exportTableToCSV('resultats.csv')
@@ -119,13 +222,58 @@
 
 	}
 
+	// Pie Chart
+
+	var capital_withdrawal = remakeNumber('<%= dataset.capital_withdrawal %>');
+	var pension_capital = remakeNumber('<%= dataset.pension_capital %>');
+
+
+	var ctx_piechart = document.getElementById("piechart_pension").getContext("2d");
+
+	var gradientStroke = ctx_piechart.createLinearGradient(0, 0, 100, 500);
+	gradientStroke.addColorStop(0, "#8fbc94");
+	gradientStroke.addColorStop(1, "#548687");
+
+	var config_piechart = {
+		type: 'pie',
+		data: {
+			labels: ['Sortie en capital','Capital retraite'],
+			datasets: [{
+				type: 'pie',
+				backgroundColor: ["#548687",gradientStroke],
+				data: [capital_withdrawal,pension_capital]
+			}]
+		},
+		options: {
+
+			title: {
+				display: true,
+				text: "Répartition du capital accumulé",
+				fontSize:14
+			}
+		}
+	};
+
+	new Chart(ctx_piechart, config_piechart);
+
+
+	// Bar Chart
+
 	var monthly_pension_without_reversion_BC = remakeNumber('<%= dataset.monthly_pension_without_reversion_BC %>');
 	var monthly_pension_if_reversion_BC = remakeNumber('<%= dataset.monthly_pension_if_reversion_BC %>');
 	var monthly_pension_without_reversion_AC = remakeNumber('<%=dataset.monthly_pension_without_reversion_AC%>');
 	var monthly_pension_if_reversion_AC = remakeNumber('<%= dataset.monthly_pension_if_reversion_AC %>');
 
 
-	var config = {
+	var ctx_barchart = document.getElementById("barchart_pension").getContext("2d");
+
+
+	var bar_gradientStroke = ctx_barchart.createLinearGradient(0, 0, 0, 700);
+	bar_gradientStroke.addColorStop(0, "#8fbc94");
+	bar_gradientStroke.addColorStop(1, "#548687");
+
+
+	var config_barchart = {
 		type: 'bar',
 		data: {
 			labels: ["Sans réversion", "Si réversion"],
@@ -137,7 +285,7 @@
 			}, {
 				type: 'bar',
 				label:'Part due aux cotisations additionnelles',
-				backgroundColor: "#8fbc94",
+				backgroundColor: bar_gradientStroke,
 				data: [monthly_pension_without_reversion_AC, monthly_pension_if_reversion_AC]
 			}]
 		},
@@ -162,10 +310,7 @@
 		}
 	};
 
-
-
-	var ctx = document.getElementById("chart_pension").getContext("2d");
-	new Chart(ctx, config);
+	new Chart(ctx_barchart, config_barchart);
 
 
 
