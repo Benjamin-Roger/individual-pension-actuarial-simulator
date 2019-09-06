@@ -1,6 +1,19 @@
-body, .result-block, .icon-data .data, .icon-data .fa {
+body, .result-block, .icon-data .data {
 	background: linear-gradient(to bottom right,#548687,#8fbc94);
 
+}
+
+body {
+	transition:0.3s all ease-in-out;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+hr {
+	margin-top:.2rem;
+	margin-bottom:.2rem;
 }
 
 .watermark {
@@ -156,7 +169,9 @@ output{
 }
 
 .data {
-	font-size:1.5rem;
+	font-size:1.3rem;
+	
+	font-weight:bold;
 }
 
 
@@ -178,10 +193,13 @@ output{
 }
 
 .icon-data .fa {
-	font-size:1.5rem;
-	color: white;
-	border-radius:100%;
-	padding:20px;
+	font-size:3rem;
+}
+
+.icon-data h4, .icon-data .fa  {
+	background: -webkit-linear-gradient(90deg,#548687,#8fbc94);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
 }
 
 .piechart {
