@@ -17,7 +17,7 @@ var basicAuth = require('express-basic-auth');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
 .use(basicAuth({
-	users: { 'simulateur': 'mdp01simulateur' },
+	users: { 'simulateur': 'mdpsimulateur2019' },
     challenge: true,
     unauthorizedResponse: getUnauthorizedResponse
 }))
