@@ -18,7 +18,8 @@ var basicAuth = require('express-basic-auth');
 app.set('views', path.join(__dirname, 'views'))
 .use(basicAuth({
 	users: { 'simulateur': 'mdp01simulateur' },
-    challenge: true
+    challenge: true,
+    unauthorizedResponse: getUnauthorizedResponse
 }))
 .set('view engine', 'ejs')
 .use(morgan('combined'))
@@ -51,7 +52,11 @@ app.set('views', path.join(__dirname, 'views'))
 	res.sendFile(path.join(__dirname,'./public/index.html'))
 })
 
-
+function getUnauthorizedResponse(req) {
+    return req.auth
+        ? ('Contactez benjamin.roger@sapiowork.com pour obtenir le mot de passe')
+        : "Aucune information n'a été saisie"
+}
 
 // // error handler
 // .use(function(err, req, res, next) {
