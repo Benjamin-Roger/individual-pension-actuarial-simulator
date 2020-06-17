@@ -1,4 +1,4 @@
-# simulateur
+# Actuarial simulator | Individual pension
 
 This simulator allows to calculate individual pensions provided by a capitalisation pension scheme.
 
