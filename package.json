@@ -17,6 +17,6 @@
     "jade": "~1.11.0",
     "morgan": "^1.9.1",
     "nodemon": "^1.19.2",
-    "papaparse": "^5.0.0"
+    "papaparse": "^5.2.0"
   }
 }
