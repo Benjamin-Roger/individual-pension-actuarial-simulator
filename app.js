@@ -16,17 +16,22 @@ var basicAuth = require('express-basic-auth');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
-.use(basicAuth({
-	users: { 'simulateur': 'mdpsimulateur2019' },
-    challenge: true,
-    unauthorizedResponse: getUnauthorizedResponse
-}))
+
+// .use(basicAuth({
+// 	users: { 'simulateur': 'mdpsimulateur2019' },
+//     challenge: true,
+//     unauthorizedResponse: getUnauthorizedResponse
+// }))
+
 .set('view engine', 'ejs')
+
 .use(morgan('combined'))
+
 .use(express.urlencoded({ extended: false }))
+
 .use(cookieParser())
 .use(express.static(path.join(__dirname, 'public')))
-.get('/outputs', function(req,res,next){
+.get('/outputs', function(req,res,next){ // exposed API to received submitted values
 	var request = {
 		retirement_age:req.query.retirement_age,
 		yearly_revenue : req.query.yearly_revenue,
@@ -44,9 +49,9 @@ app.set('views', path.join(__dirname, 'views'))
 		capital_reversion : req.query.capital_reversion,	
 	};
 	
-	var dataset = simulator(request);
+	var dataset = simulator(request); // Calculated output from submitted values
 
-	res.render('output.ejs', {dataset:dataset})
+	res.render('output.ejs', {dataset:dataset}) // Returns the whole rendered block
 })
 .get('/',function(req,res,next) {
 	res.sendFile(path.join(__dirname,'./public/index.html'))
@@ -58,16 +63,6 @@ function getUnauthorizedResponse(req) {
         : "Aucune information n'a été saisie"
 }
 
-// // error handler
-// .use(function(err, req, res, next) {
-//   // set locals, only providing error in development
-//   res.locals.message = err.message;
-//   res.locals.error = req.app.get('env') === 'development' ? err : {}
-
-//   // render the error page
-//   res.status(err.status || 500)
-//   res.render('error')
-// });
 
 if (process.env.ENVIRONMENT === 'LOCAL') {
 	module.exports = app;

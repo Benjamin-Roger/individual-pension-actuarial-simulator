@@ -5,29 +5,25 @@ var Papa = require('papaparse');
 
 var official_retirement_age = 60;
 var first_age_mortality_table = 25;
-var inflation_rate = 0.03;
-var actualization_rate = 0;
 var revalorization_rate = 0;
 var technical_rate_conversion_pension = 0; //Taux technique de conversion du capital en rente
 
+var inflation_rate = 0.03; // Unnecessary for simulation
+var actualization_rate = 0; // Unnecessary for simulation
 
+
+// Used this function to generate range
 function* range(start, end) {
 	for (let i = start; i <= end; i++) {
 		yield i;
 	}
 }
 
-var dataset_mortalite_femmes = {};
-var dataset_mortalite_hommes = {};
-
-var l_femmes = {};
-var l_hommes = {};
-
-var L_femmes = {};
-var L_hommes = {};
-
-var e_femmes = {};
-var e_hommes = {};
+// Variables initialization
+var dataset_mortalite = {};
+var l_table = {};
+var L_table = {};
+var e_table = {};
 
 
 function array_to_object(starting_key,array) {
@@ -42,7 +38,7 @@ function array_to_object(starting_key,array) {
 }
 
 
-//Fonction l(x)
+//Function l(x)
 function l_x(object) {
 
 	var lx_object = {};
@@ -70,7 +66,7 @@ function l_x(object) {
 }
 
 
-//Fonction L(x)
+//Function L(x)
 function L_x(object) {
 
 	var Lx_object = {};
@@ -96,7 +92,7 @@ function L_x(object) {
 
 }
 
-//Fonction T(x)
+//Function T(x)
 function T_x(object) {
 
 	var Tx_object = {};
@@ -127,7 +123,7 @@ function T_x(object) {
 
 }
 
-//Fonction e(x)
+//Function e(x)
 function e_x(T_object,l_object) {
 
 	var ex_object = {};
@@ -152,7 +148,7 @@ function e_x(T_object,l_object) {
 }
 
 
-//Fonction pour obtenir le coefficient de conversion du capital en rente par AGE & ANNEE
+// Function tor return pension capital conversion coefficient by AGE & YEAR
 function yearly_a_x(l_object,age,year) {
 	var yearly_ax_object = 0; 
 
@@ -173,7 +169,7 @@ function yearly_a_x(l_object,age,year) {
 }
 
 
-//Fonction pour obtenir le coefficient de conversion du capital en rente par ANNEE (renvoie un object avec les années en clés)
+//Function to return pension capital conversion coefficient by year (returns an object with years as key)
 function a_x(l_object,age) {
 
 	var ax_object = {};
@@ -187,23 +183,23 @@ function a_x(l_object,age) {
 }
 
 
-var table_mortalite_femmes_files = '';
+var table_mortalite_table_files = '';
 
 
-fs.readFile('./data/table_mortalite_femmes.csv', 'utf8', (err, data) => {
+fs.readFile('./data/table_mortalite.csv', 'utf8', (err, data) => {
 	if (err) throw err;
 
-	table_mortalite_femmes_files = data;
+	table_mortalite_table_files = data;
 
-	Papa.parse(table_mortalite_femmes_files,
+	Papa.parse(table_mortalite_table_files,
 	{
 		header:true,	
 		complete: function(results, parse) {
-			dataset_mortalite_femmes = array_to_object(first_age_mortality_table,results.data);
-			l_femmes = l_x(dataset_mortalite_femmes);
-			L_femmes = L_x(l_femmes);
-			T_femmes = T_x(L_femmes);
-			e_femmes = e_x(T_femmes,l_femmes);
+			dataset_mortalite = array_to_object(first_age_mortality_table,results.data);
+			l_table = l_x(dataset_mortalite);
+			L_table = L_x(l_table);
+			T_table = T_x(L_table);
+			e_table = e_x(T_table,l_table);
 
 		}
 	});
@@ -233,7 +229,7 @@ function format_percentage(number) {
 
 function simulator(dataset) {
 
-	//Etablissement variables
+	//Initialize vars
 	var retirement_age = dataset.retirement_age;
 	var monthly_revenue = dataset.yearly_revenue/12;
 	var min_contribution = dataset.min_contribution;
@@ -250,7 +246,7 @@ function simulator(dataset) {
 	var capital_reversion = dataset.capital_reversion/1;
 
 
-	//Calculs
+	//Calculate results to return
 
 	var retirement_year = + simulation_year + (retirement_age - working_age);
 
@@ -275,8 +271,8 @@ function simulator(dataset) {
 	;
 
 	var pension_capital = accumulated_capital*(1 - capital_withdrawal_rate );
-	var expected_lifespan = e_femmes[retirement_age][simulation_year];
-	var conversion_coefficient = a_x(l_femmes,retirement_age)[simulation_year];
+	var expected_lifespan = e_table[retirement_age][simulation_year];
+	var conversion_coefficient = a_x(l_table,retirement_age)[simulation_year];
 	var capital_withdrawal = accumulated_capital*capital_withdrawal_rate;
 
 	if (retirement_age >= official_retirement_age) {
@@ -323,6 +319,8 @@ function simulator(dataset) {
 	var monthly_pension_if_reversion_BC = life_annuity_if_reversion_BC * (1 - fee_on_pensions);
 
 
+
+	//The results are returned as object
 
 	var result = {
 		monthly_revenue:format_number(monthly_revenue),
