@@ -6,7 +6,9 @@ The mortality table is from public sources (World Bank).
 
 ## How it works
 The initial values are submitted through a form in the homepage, to an exposed API (output.js) via AJAX.
+
 The API returns the rendered results, including charts.
+
 The rendered results are displayed with Ajax in a container below the form.
 
 ## Technologies
