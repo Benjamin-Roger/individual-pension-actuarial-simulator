@@ -10,4 +10,6 @@ The simulator relies on NodeJS/ExpressJS
 Notable libraries: Papaparse, EJS
 
 ## How to start
-At the root of the folder, launch command "npm start"
+Clone this repo.
+Enter the folder.
+Type the command "npm i && npm start"
