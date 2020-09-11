@@ -4,6 +4,8 @@ This simulator allows to calculate individual pensions provided by a capitalisat
 
 The mortality table is from public sources (World Bank).
 
+View it live @ http://simulateur-retraite.benjaminroger.com/
+
 ## How it works
 The initial values are submitted through a form in the homepage, to an exposed API (output.js) via AJAX.
 
@@ -19,4 +21,7 @@ Notable libraries: Papaparse, EJS
 ## How to start
 Clone this repo.
 Enter the folder.
-Type the command "npm i && node app.js"
+Type the command 
+```code
+npm i && node app.js
+```
